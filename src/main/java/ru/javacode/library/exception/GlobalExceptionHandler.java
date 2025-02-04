@@ -26,6 +26,13 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(TokenNotValidException.class)
+    public ResponseEntity<Void> handleTokenNotValidException(TokenNotValidException e) {
+        log.warn(e.getMessage());
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
+
     /**
      * Catches exceptions when the uniqueness of fields in the database is violated
      */

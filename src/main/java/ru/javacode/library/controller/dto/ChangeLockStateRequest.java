@@ -1,6 +1,5 @@
 package ru.javacode.library.controller.dto;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.Email;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,6 +12,5 @@ public class ChangeLockStateRequest {
     private String email;
 
     @NonNull
-    @JsonProperty("is_blocked")
     private Boolean isBlocked;
 }

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import ru.javacode.library.controller.dto.JwtAuthenticationResponse;
+import ru.javacode.library.controller.dto.JwtRefreshRequest;
 import ru.javacode.library.controller.dto.SignInRequest;
 import ru.javacode.library.controller.dto.SignUpRequest;
 import ru.javacode.library.security.AuthService;
@@ -31,13 +32,19 @@ public class AuthController {
                 !userDetails.getAuthorities().contains(new SimpleGrantedAuthority(Role.ROLE_ADMIN.name())))) {
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
-        var token = authenticationService.signUp(request);
-        return new ResponseEntity<>(token, HttpStatus.OK);
+        var tokens = authenticationService.signUp(request);
+        return new ResponseEntity<>(tokens, HttpStatus.OK);
     }
 
     @PostMapping("/api/v1/sign-in")
     public ResponseEntity<JwtAuthenticationResponse> signIn(@RequestBody @Valid SignInRequest request) {
-        var token = authenticationService.signIn(request);
-        return new ResponseEntity<>(token, HttpStatus.OK);
+        var tokens = authenticationService.signIn(request);
+        return new ResponseEntity<>(tokens, HttpStatus.OK);
+    }
+
+    @PostMapping("/api/v1/token/refresh")
+    public ResponseEntity<JwtAuthenticationResponse> refreshToken(@RequestBody @Valid JwtRefreshRequest refreshToken) {
+        var tokens = authenticationService.refreshToken(refreshToken.getRefreshToken());
+        return new ResponseEntity<>(tokens, HttpStatus.OK);
     }
 }

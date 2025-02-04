@@ -72,7 +72,8 @@ public class SecurityConfig {
     private void secureEndpoints(HttpSecurity http) throws Exception {
         http.
                 authorizeHttpRequests(authz -> authz
-                        .requestMatchers(HttpMethod.POST, "/api/v1/sign-in", "api/v1/sign-up").permitAll()
+                        .requestMatchers(HttpMethod.POST,
+                                "/api/v1/sign-in", "api/v1/sign-up", "api/v1/token/refresh").permitAll()
 
                         .anyRequest().authenticated()
                 );

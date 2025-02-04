@@ -14,6 +14,32 @@ spring:
       schema-locations: classpath:schema.sql
       data-locations: classpath:data.sql
 
-logging:
-  level:
-    web: debug
+application:
+  security:
+    jwt:
+      SECRET_KEY: cdge07e9f410f80eff1a031eb91058447659c70c86216873ebcfe1455feb7a5c
+      #1 day
+      expiration: 86400000
+      #7 days
+      refresh-token-expiration: 604800000
+    maxLoginAttempts: 5
+
+#server:
+#  port: 8080
+#
+#  ssl:
+#    enabled: true
+#    # The format used for the keystore. It could be set to JKS in case it is a JKS file
+#    key-store-type: PKCS12
+#    # The path to the keystore containing the certificate
+#    key-store: classpath:keystore/javacode.p12
+#    # The password used to generate the certificate
+#    key-store-password: javacode
+#    # The alias mapped to the certificate
+#    key-alias: javacode
+#
+#
+#    #trust store location
+#    trust-store: classpath:keystore/javacode.p12
+#    #trust store password
+#    trust-store-password: javacode

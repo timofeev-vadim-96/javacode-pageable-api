@@ -1,3 +1,15 @@
+INSERT INTO users (email, password, role)
+VALUES ('testAdmin@gmail.com', 'password', 'ROLE_ADMIN'),
+       ('testUser@gmail.com', 'password', 'ROLE_USER'),
+       ('moderator@gmail.com', 'password', 'ROLE_MODERATOR'),
+       ('user4@example.com', 'password', 'ROLE_USER'),
+       ('user5@example.com', 'password', 'ROLE_USER'),
+       ('user6@example.com', 'password', 'ROLE_USER'),
+       ('user7@example.com', 'password', 'ROLE_USER'),
+       ('user8@example.com', 'password', 'ROLE_USER'),
+       ('user9@example.com', 'password', 'ROLE_USER'),
+       ('user10@example.com', 'password', 'ROLE_USER');
+
 insert into authors(full_name)
 values ('Author_1'), ('Author_2'), ('Author_3');
 

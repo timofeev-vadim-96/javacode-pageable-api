@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.javacode.library.exception.EntityNotFoundException;
 import ru.javacode.library.exception.IdNullPointerException;
+import ru.javacode.library.exception.TitleAlreadyExistsException;
 import ru.javacode.library.model.Book;
 import ru.javacode.library.model.Genre;
 import ru.javacode.library.repository.AuthorRepository;
@@ -22,6 +23,7 @@ import ru.javacode.library.repository.BookRepository;
 import ru.javacode.library.repository.GenreRepository;
 import ru.javacode.library.service.dto.BookDto;
 
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -48,7 +50,7 @@ public class BookServiceImpl implements BookService {
 
     @Override
     @Transactional(readOnly = true)
-    @Cacheable("books")
+    @Cacheable(value = "books")
     public Page<BookDto> findAll(int page, int size, String sortBy, Direction direction) {
         Pageable pageable = PageRequest.of(page, size, Sort.by(direction, sortBy));
         Page<Book> books = bookRepository.findAll(pageable);
@@ -95,6 +97,9 @@ public class BookServiceImpl implements BookService {
     }
 
     private Book save(Long id, String title, long authorId, Set<Long> genresIds) {
+        if (isTitleAlreadyExists(title)) {
+            throw new TitleAlreadyExistsException("Book with title = %s is already exists".formatted(title));
+        }
         if (isEmpty(genresIds)) {
             throw new IllegalArgumentException("Genres ids must not be null");
         }
@@ -124,5 +129,10 @@ public class BookServiceImpl implements BookService {
             throw new EntityNotFoundException("One or all genres with ids %s not found".formatted(genresIds));
         }
         return genres;
+    }
+
+    private boolean isTitleAlreadyExists(String bookTitle) {
+        Optional<Book> byTitle = bookRepository.findByTitle(bookTitle);
+        return byTitle.isPresent();
     }
 }

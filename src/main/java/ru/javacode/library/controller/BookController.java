@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,12 +32,14 @@ public class BookController {
     }
 
     @PutMapping("/api/v1/book")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MODERATOR')")
     public ResponseEntity<BookDto> update(@Valid @RequestBody BookViewDto book) {
         BookDto updated = bookService.update(book.getId(), book.getTitle(), book.getAuthorId(), book.getGenres());
         return new ResponseEntity<>(updated, HttpStatus.OK);
     }
 
     @PostMapping("/api/v1/book")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MODERATOR')")
     public ResponseEntity<BookDto> create(@Valid @RequestBody BookViewDto book) {
         BookDto created = bookService.create(book.getTitle(), book.getAuthorId(), book.getGenres());
         return new ResponseEntity<>(created, HttpStatus.CREATED);
@@ -54,6 +57,7 @@ public class BookController {
     }
 
     @DeleteMapping(value = "/api/v1/book/{id}")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MODERATOR')")
     public ResponseEntity<Void> delete(@PathVariable("id") long id) {
         bookService.deleteById(id);
         return ResponseEntity.ok().build();

@@ -364,8 +364,8 @@
 						"exec": [
 							"//автоматически добавляем новуе переменные среды на базе полученных значений токенов",
 							"var jsonData = JSON.parse(responseBody);",
-							"postman.setEnvironmentVariable(\"refresh_token\", jsonData.token);",
-							"postman.setEnvironmentVariable(\"access_token\", jsonData.token);"
+							"postman.setEnvironmentVariable(\"refresh_token\", jsonData.refreshToken);",
+							"postman.setEnvironmentVariable(\"access_token\", jsonData.accessToken);"
 						],
 						"type": "text/javascript",
 						"packages": {}
@@ -401,6 +401,66 @@
 					],
 					"path": [
 						"sign-in"
+					]
+				},
+				"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
+			},
+			"response": []
+		},
+		{
+			"name": "refresh-token",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//автоматически добавляем новуе переменные среды на базе полученных значений токенов",
+							"var jsonData = JSON.parse(responseBody);",
+							"postman.setEnvironmentVariable(\"refresh_token\", jsonData.refreshToken);",
+							"postman.setEnvironmentVariable(\"access_token\", jsonData.accessToken);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"refreshToken\": \"Bearer {{refresh_token}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/token/refresh",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"token",
+						"refresh"
 					]
 				},
 				"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."

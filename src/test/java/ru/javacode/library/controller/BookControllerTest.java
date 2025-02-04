@@ -5,8 +5,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.FilterType;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -17,6 +20,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import ru.javacode.library.controller.dto.BookViewDto;
 import ru.javacode.library.exception.EntityNotFoundException;
 import ru.javacode.library.exception.IdNullPointerException;
+import ru.javacode.library.security.filter.JwtAuthenticationFilter;
 import ru.javacode.library.service.BookService;
 import ru.javacode.library.service.dto.AuthorDto;
 import ru.javacode.library.service.dto.BookDto;
@@ -32,7 +36,9 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(BookController.class)
+@WebMvcTest(controllers = {BookController.class}, excludeAutoConfiguration = SecurityAutoConfiguration.class,
+        excludeFilters = @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE,
+                classes = JwtAuthenticationFilter.class))
 @DisplayName("Контроллер для работы с книгами")
 class BookControllerTest {
     @Autowired

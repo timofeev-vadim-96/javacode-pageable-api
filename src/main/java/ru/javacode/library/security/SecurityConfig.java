@@ -9,7 +9,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -73,7 +72,7 @@ public class SecurityConfig {
         http.
                 authorizeHttpRequests(authz -> authz
                         .requestMatchers(HttpMethod.POST,
-                                "/api/v1/sign-in", "api/v1/sign-up", "api/v1/token/refresh").permitAll()
+                                "/api/v1/sign-in", "/api/v1/sign-up", "/api/v1/token/refresh").permitAll()
 
                         .anyRequest().authenticated()
                 );

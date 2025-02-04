@@ -218,7 +218,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"id\": 4,\n    \"title\": \"new book\",\n    \"authorId\": 2,\n    \"genres\": [\n        3, 4\n    ]\n}",
+					"raw": "{\n    \"id\": 4,\n    \"title\": \"new book2\",\n    \"authorId\": 2,\n    \"genres\": [\n        3, 4\n    ]\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -284,13 +284,13 @@
 					}
 				},
 				"url": {
-					"raw": "{{base_url}}/book/4",
+					"raw": "{{base_url}}/book/5",
 					"host": [
 						"{{base_url}}"
 					],
 					"path": [
 						"book",
-						"4"
+						"5"
 					]
 				},
 				"description": "This is a DELETE request, and it is used to delete data that was previously created via a POST request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).\n\nA successful DELETE request typically returns a `200 OK`, `202 Accepted`, or `204 No Content` response code."
@@ -335,7 +335,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"email\": \"newAdmin22@email.com\",\n    \"password\": \"password\",\n    \"role\": \"ROLE_ADMIN\"\n}",
+					"raw": "{\n\t\"email\": \"newAdmin22@email.com\",\n    \"password\": \"password\",\n    \"role\": \"ROLE_USER\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -387,7 +387,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "// {\n// \t\"email\": \"testAdmin@gmail.com\",\n//     \"password\": \"password\"\n// }\n// {\n// \t\"email\": \"moderator@gmail.com\",\n//     \"password\": \"password\"\n// }\n{\n\t\"email\": \"testUser@gmail.com\",\n    \"password\": \"password\"\n}",
+					"raw": "{\n\t\"email\": \"testAdmin@gmail.com\",\n    \"password\": \"password\"\n}\n// {\n// \t\"email\": \"moderator@gmail.com\",\n//     \"password\": \"password\"\n// }\n// {\n// \t\"email\": \"testUser@gmail.com\",\n//     \"password\": \"password\"\n// }",
 					"options": {
 						"raw": {
 							"language": "json"
